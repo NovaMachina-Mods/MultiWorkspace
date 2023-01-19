@@ -1,3 +1,15 @@
 [submodule "ExNihiloSequentia"]
 	path = ExNihiloSequentia
 	url = https://github.com/NovaMachina-Mods/ExNihiloSequentia
+[submodule "ExNihiloAE"]
+	path = ExNihiloAE
+	url = https://github.com/NovaMachina-Mods/ExNihiloAE
+[submodule "ExNihiloMekanism"]
+	path = ExNihiloMekanism
+	url = https://github.com/NovaMachina-Mods/ExNihiloMekanism
+[submodule "ExNihiloThermal"]
+	path = ExNihiloThermal
+	url = https://github.com/NovaMachina-Mods/ExNihiloThermal
+[submodule "ExNihiloTinkers"]
+	path = ExNihiloTinkers
+	url = https://github.com/NovaMachina-Mods/ExNihiloTinkers
