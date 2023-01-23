@@ -172,3 +172,35 @@ dependencies {
         implementation project(':ExNihiloTinkers')
     }
 }
+
+if(rootProject.name != project.name) {
+    task updateToolingProperties(type: WriteProperties) {
+        outputFile("gradle.properties")
+
+        doFirst {
+            def currentProps = getProps(file("gradle.properties"))
+            def rootProps = getProps(file("$rootDir/gradle.properties"))
+
+            rootProps.forEach((key, value) -> {
+                if (currentProps.containsKey(key)) {
+                    currentProps.put(key, value)
+                }
+            })
+            properties(currentProps)
+        }
+
+        comment('''This file may have been edited by a Gradle Task.''')
+    }
+}
+
+Map<String, Object> getProps(File propFile) {
+    Map<String, Object> mappedProps = new HashMap<>()
+    Properties props = new Properties()
+    if (propFile.canRead()) {
+        props.load(new FileInputStream(propFile))
+        props.forEach((key, value) -> {
+            mappedProps.put(key as String, value)
+        })
+    }
+    return mappedProps
+}
