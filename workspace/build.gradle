@@ -175,6 +175,13 @@ dependencies {
 
 if(rootProject.name != project.name) {
     task updateToolingProperties(type: WriteProperties) {
+        group = "management"
+        description = "Updates tooling properties for all sub-projects"
+
+        outputs.upToDateWhen {
+            false
+        }
+
         outputFile("gradle.properties")
 
         doFirst {
