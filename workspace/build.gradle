@@ -1,213 +1,104 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = "https://plugins.gradle.org/m2/" }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-    }
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.+"
+    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id 'net.neoforged.gradle.userdev' version '7.0.133'
+    id 'com.diffplug.spotless' version '6.23.3'
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'eclipse'
-apply plugin: 'com.matthewprenger.cursegradle'
-apply plugin: 'maven-publish'
-
-if(project.tasks.findByName("wrapper") == null) {
-    task wrapper(type: Wrapper) {
-        gradleVersion = '7.6'
-        distributionType = Wrapper.DistributionType.ALL
-    }
+if (project.file('../gradletools.gradle').exists()) {
+    apply from: '../gradletools.gradle'
+} else {
+    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/1.20_tech/gradletools.gradle'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+repositories {
+    mavenLocal()
+    maven { url "https://dvs1.progwml6.com/files/maven" } // JEI
+    maven { url "https://maven.blamejared.com" } // Patchouli
+    maven { url "https://maven.k-4u.nl" } // McJtyLib, TOP
+    maven { url "https://maven.theillusivec4.top/" } // Curios
+}
+
+version = '1.0'
+group = 'com.yourname.modid'
+archivesBaseName = 'modid'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 minecraft {
-    mappings channel: property("mappingsChannel"), version: property("mappingsVersion")
-//    accessTransformer = file('workspace/accesstransformer.cfg')
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+}
 
     runs {
-        client {
+        configureEach {
             workingDirectory project.file('run')
+            systemProperty 'mixin.env.remapRefMap', 'true'
+            systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', "${project.name.toLowerCase()}"
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+//            modSource project(':NovaCore').sourceSets.main
+//            modSource project(':ExNihiloSequentia').sourceSets.main
+//            modSource project(':ExNihiloCraftTweaker').sourceSets.main
+//            modSource project(':ExNihiloJade').sourceSets.main
+//            modSource project(':ExNihiloJEI').sourceSets.main
+//            modSource project(':ExNihiloTOP').sourceSets.main
+//            modSource project(':ExNihiloKubeJs').sourceSets.main
+//            modSource project(':ExNihiloMekanism').sourceSets.main
+//            modSource project(':ExNihiloThermal').sourceSets.main
+//            modSource project(':ExNihiloAE').sourceSets.main
+        }
 
-            mods {
-                if(findProject(':ExNihiloAE') != null) {
-                    ExNihiloAE {
-                        source project(':ExNihiloAE').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloMekanism') != null) {
-                    ExNihiloMekanism {
-                        source project(':ExNihiloMekanism').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloSequentia') != null) {
-                    ExNihiloSequentia {
-                        source project(':ExNihiloSequentia').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloThermal') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloThermal').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloTinkers') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloTinkers').sourceSets.main
-                    }
-                }
-            }
+        client {
         }
 
         server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', "${project.name.toLowerCase()}"
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            mods {
-                if(findProject(':ExNihiloAE') != null) {
-                    ExNihiloAE {
-                        source project(':ExNihiloAE').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloMekanism') != null) {
-                    ExNihiloMekanism {
-                        source project(':ExNihiloMekanism').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloSequentia') != null) {
-                    ExNihiloSequentia {
-                        source project(':ExNihiloSequentia').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloThermal') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloThermal').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloTinkers') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloTinkers').sourceSets.main
-                    }
-                }
-            }
         }
 
         data {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            args '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]
-
-            mods {
-                if(findProject(':ExNihiloAE') != null) {
-                    ExNihiloAE {
-                        source project(':ExNihiloAE').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloMekanism') != null) {
-                    ExNihiloMekanism {
-                        source project(':ExNihiloMekanism').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloSequentia') != null) {
-                    ExNihiloSequentia {
-                        source project(':ExNihiloSequentia').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloThermal') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloThermal').sourceSets.main
-                    }
-                }
-                if(findProject(':ExNihiloTinkers') != null) {
-                    ExNihiloThermal {
-                        source project(':ExNihiloTinkers').sourceSets.main
-                    }
-                }
-            }
+            programArguments.addAll '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', sourceSets.main.resources.srcDirs[0].absolutePath
         }
     }
-}
 
-jar {
-  duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
+jars()
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${property("minecraftVersion")}-${property("forgeVersion")}"
+    mc()
+    jei()
 
-    if(findProject(':ExNihiloAE') != null) {
-        implementation project(':ExNihiloAE')
-    }
-    if(findProject(':ExNihiloMekanism') != null) {
-        implementation project(':ExNihiloMekanism')
-    }
-    if(findProject(':ExNihiloSequentia') != null) {
-        implementation project(':ExNihiloSequentia')
-    }
-    if(findProject(':ExNihiloThermal') != null) {
-        implementation project(':ExNihiloThermal')
-    }
-    if(findProject(':ExNihiloTinkers') != null) {
-        implementation project(':ExNihiloTinkers')
-    }
+//    implementation project(':NovaCore')
+//    implementation project(':ExNihiloSequentia')
+//    implementation project(':ExNihiloCraftTweaker')
+//    implementation project(':ExNihiloJade')
+//    implementation project(':ExNihiloJEI')
+//    implementation project(':ExNihiloTOP')
+//    implementation project(':ExNihiloKubeJs')
+//    implementation project(':ExNihiloMekanism')
+//    implementation project(':ExNihiloThermal')
+//    implementation project(':ExNihiloAE')
 }
 
-if(rootProject.name != project.name) {
-    task updateToolingProperties(type: WriteProperties) {
-        group = "management"
-        description = "Updates tooling properties for all sub-projects"
-
-        outputs.upToDateWhen {
-            false
-        }
-
-        outputFile("gradle.properties")
-
-        doFirst {
-            def currentProps = getProps(file("gradle.properties"))
-            def rootProps = getProps(file("$rootDir/gradle.properties"))
-
-            rootProps.forEach((key, value) -> {
-                if (currentProps.containsKey(key)) {
-                    currentProps.put(key, value)
-                }
-            })
-            properties(currentProps)
-        }
-
-        comment('''This file may have been edited by a Gradle Task.''')
-    }
+// Example configuration to allow publishing using the maven-publish task
+// we define a custom artifact that is sourced from the reobfJar output task
+// and then declare that to be published
+// Note you'll need to add a repository here
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
 }
-
-Map<String, Object> getProps(File propFile) {
-    Map<String, Object> mappedProps = new HashMap<>()
-    Properties props = new Properties()
-    if (propFile.canRead()) {
-        props.load(new FileInputStream(propFile))
-        props.forEach((key, value) -> {
-            mappedProps.put(key as String, value)
-        })
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact reobfArtifact
+        }
     }
-    return mappedProps
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
 }
