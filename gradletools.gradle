@@ -6,13 +6,15 @@ project.ext.set("mod_authors", 'NovaMachina')
 project.ext.set("mod_license", 'CC BY-NC-SA 4.0')
 project.ext.set("minecraft_version", '1.20.4')
 project.ext.set("minecraft_version_range", '[1.20.4,1.21)')
-project.ext.set("neo_version", '20.4.167')
+project.ext.set("neo_version", '20.4.196')
 project.ext.set("neo_version_range", '[20.4,21)')
 project.ext.set("loader_version_range", '[2,)')
 project.ext.set("resource_pack_format", '15')
 project.ext.set("data_pack_format", '10')
-project.ext.set("jei_version", '17.3.0.48')
-project.ext.set("top_version", '1.20.4_neo-11.0.1-2')
+project.ext.set("exnihilo_version", '1.20.4-6.0.0-build.17')
+project.ext.set("exnihilo_version_range", '[6.0.0, 7.0.0)')
+project.ext.set("novacore_version", '1.20.4-2.0.0-build.6')
+project.ext.set("novacore_version_range", '[2.0.0, 3.0.0)')
 
 ext.getChangelogText =  {
     return project.file('CHANGELOG.md').text
@@ -38,10 +40,14 @@ ext.repos = {
     repositories {
         mavenLocal()
         maven { url "https://maven.blamejared.com" }    // Patchouli, bookshelf, gamestages, JEI
-        //maven { url "https://dvs1.progwml6.com/files/maven" } // JEI
         maven { url "https://maven.k-4u.nl" } // McJtyLib, TOP
-        maven { url 'https://maven.minecraftforge.net/' } // Serene Seasons
-        maven { url "https://maven.theillusivec4.top/" } // Curios
+        maven { url 'https://dl.cloudsmith.io/public/novamachina-mods/release/maven/' } // NovaMachina Mods - Release
+        maven { url 'https://dl.cloudsmith.io/public/novamachina-mods/snapshot/maven/' } // NovaMachina Mods - Snapshots
+        maven { url "https://www.cursemaven.com" } // Jade
+        maven { url 'https://modmaven.dev/' }
+        maven { url 'https://maven.k-4u.nl/' }
+        maven { url 'https://maven.shedaniel.me' }
+        maven { url 'https://maven.architectury.dev/' }
     }
 }
 
@@ -49,21 +55,23 @@ ext.mc = {
     dependencies.implementation "net.neoforged:neoforge:${neo_version}"
 }
 
-ext.jei = {
-    dependencies.compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    dependencies.compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    dependencies.runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+ext.exn = {
+    if (findProject(':ExNihiloSequentia') != null) {
+        dependencies.implementation project(':ExNihiloSequentia')
+    } else {
+        dependencies.implementation "novamachina.novacore:novacore:${exnihilo_version}"
+    }
 }
 
-//ext.top = {
-//    if (findProject(':TheOneProbe') != null) {
-//        dependencies.implementation project(':TheOneProbe')
-//    } else {
-//        dependencies.implementation "mcjty.theoneprobe:theoneprobe:${top_version}"
-//    }
-//}
+ext.novacore = {
+    if (findProject(':NovaCore') != null) {
+        dependencies.api project(':NovaCore')
+    } else {
+        dependencies.api "novamachina.novacore:novacore:${novacore_version}"
+    }
+}
 
-ext.modrinth = { opt, req, versions ->
+ext.modrinthConfig = { opt, req, versions ->
     tasks.modrinth.enabled = System.getenv("MODRINTH_TOKEN") != null
     modrinth {
         token = System.getenv("MODRINTH_TOKEN")

@@ -12,15 +12,16 @@ plugins {
 
 rootProject.name = 'MultiWorkspace'
 
-include 'NovaCore'
+//include 'NovaCore'
 //include 'ExNihiloSequentia'
-//include 'ExNihiloCraftTweaker'
-//include 'ExNihiloJade'
 //include 'ExNihiloJEI'
 //include 'ExNihiloTOP'
-//include 'ExNihiloKubeJs'
 //include 'ExNihiloMekanism'
+//include 'ExNihiloJade'
+
+//include 'ExNihiloKubeJs'
 //include 'ExNihiloThermal'
+//include 'ExNihiloCraftTweaker'
 //include 'ExNihiloAE'
 
 include 'workspace'

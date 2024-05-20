@@ -12,16 +12,10 @@ plugins {
 if (project.file('../gradletools.gradle').exists()) {
     apply from: '../gradletools.gradle'
 } else {
-    apply from: 'https://raw.githubusercontent.com/McJtyMods/MultiWorkspace/1.20_tech/gradletools.gradle'
+    apply from: 'https://raw.githubusercontent.com/NovaMachina-Mods/MultiWorkspace/1.20/gradletools.gradle'
 }
 
-repositories {
-    mavenLocal()
-    maven { url "https://dvs1.progwml6.com/files/maven" } // JEI
-    maven { url "https://maven.blamejared.com" } // Patchouli
-    maven { url "https://maven.k-4u.nl" } // McJtyLib, TOP
-    maven { url "https://maven.theillusivec4.top/" } // Curios
-}
+repos()
 
 version = '1.0'
 group = 'com.yourname.modid'
@@ -42,13 +36,14 @@ minecraft {
 
 //            modSource project(':NovaCore').sourceSets.main
 //            modSource project(':ExNihiloSequentia').sourceSets.main
-//            modSource project(':ExNihiloCraftTweaker').sourceSets.main
-//            modSource project(':ExNihiloJade').sourceSets.main
 //            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
-//            modSource project(':ExNihiloKubeJs').sourceSets.main
+//            modSource project(':ExNihiloJade').sourceSets.main
 //            modSource project(':ExNihiloMekanism').sourceSets.main
+
+//            modSource project(':ExNihiloKubeJs').sourceSets.main
 //            modSource project(':ExNihiloThermal').sourceSets.main
+//            modSource project(':ExNihiloCraftTweaker').sourceSets.main
 //            modSource project(':ExNihiloAE').sourceSets.main
         }
 
@@ -67,17 +62,17 @@ jars()
 
 dependencies {
     mc()
-    jei()
 
 //    implementation project(':NovaCore')
 //    implementation project(':ExNihiloSequentia')
-//    implementation project(':ExNihiloCraftTweaker')
-//    implementation project(':ExNihiloJade')
 //    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
-//    implementation project(':ExNihiloKubeJs')
+//    implementation project(':ExNihiloJade')
 //    implementation project(':ExNihiloMekanism')
+
+//    implementation project(':ExNihiloKubeJs')
 //    implementation project(':ExNihiloThermal')
+//    implementation project(':ExNihiloCraftTweaker')
 //    implementation project(':ExNihiloAE')
 }
 
