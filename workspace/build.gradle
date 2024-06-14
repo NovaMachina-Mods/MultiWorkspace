@@ -34,8 +34,8 @@ minecraft {
             systemProperty 'mixin.env.remapRefMap', 'true'
             systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
-//            modSource project(':NovaCore').sourceSets.main
-//            modSource project(':ExNihiloSequentia').sourceSets.main
+            modSource project(':NovaCore').sourceSets.main
+            modSource project(':ExNihiloSequentia').sourceSets.main
 //            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
@@ -63,8 +63,8 @@ jars()
 dependencies {
     mc()
 
-//    implementation project(':NovaCore')
-//    implementation project(':ExNihiloSequentia')
+    implementation project(':NovaCore')
+    implementation project(':ExNihiloSequentia')
 //    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
 //    implementation project(':ExNihiloJade')
@@ -95,5 +95,17 @@ publishing {
         maven {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }
