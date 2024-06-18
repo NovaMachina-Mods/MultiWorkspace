@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id "com.matthewprenger.cursegradle" version "1.4.0"
-    id 'net.neoforged.gradle.userdev' version '7.0.142'
+    id 'net.neoforged.gradle.userdev' version '7.0.145'
     id 'com.diffplug.spotless' version '6.23.3'
 }
 
@@ -35,7 +35,7 @@ minecraft {
             systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             modSource project(':NovaCore').sourceSets.main
-//            modSource project(':ExNihiloSequentia').sourceSets.main
+            modSource project(':ExNihiloSequentia').sourceSets.main
 //            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
@@ -64,7 +64,7 @@ dependencies {
     mc()
 
     implementation project(':NovaCore')
-//    implementation project(':ExNihiloSequentia')
+    implementation project(':ExNihiloSequentia')
 //    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
 //    implementation project(':ExNihiloJade')
