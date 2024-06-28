@@ -36,7 +36,8 @@ minecraft {
             systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             modSource project(':NovaCore').sourceSets.main
-            modSource project(':ExNihiloSequentia').sourceSets.main
+            modSource project(':GalacticResources').sourceSets.main
+//            modSource project(':ExNihiloSequentia').sourceSets.main
 //            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
@@ -65,7 +66,8 @@ dependencies {
     mc()
 
     implementation project(':NovaCore')
-    implementation project(':ExNihiloSequentia')
+    implementation project(':GalacticResources')
+//    implementation project(':ExNihiloSequentia')
 //    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
 //    implementation project(':ExNihiloJade')
