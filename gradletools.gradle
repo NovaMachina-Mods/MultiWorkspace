@@ -115,12 +115,14 @@ ext.cfdeps = { optional, required, versions ->
             addGameVersion "NeoForge"
             releaseType = project.release_type
             mainArtifact(project.jar) {}
-            relations {
-                optional.each { lib ->
-                    optionalLibrary lib
-                }
-                required.each { lib ->
-                    requiredDependency lib
+            if(optional.size() > 0 || required.size() > 0) {
+                relations {
+                    optional.each { lib ->
+                        optionalLibrary lib
+                    }
+                    required.each { lib ->
+                        requiredDependency lib
+                    }
                 }
             }
         }
