@@ -14,7 +14,7 @@ rootProject.name = 'MultiWorkspace'
 
 include 'NovaCore'
 include 'GalacticResources'
-//include 'ExNihiloSequentia'
+include 'ExNihiloSequentia'
 //include 'ExNihiloJEI'
 //include 'ExNihiloTOP'
 //include 'ExNihiloMekanism'

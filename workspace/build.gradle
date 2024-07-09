@@ -37,7 +37,7 @@ minecraft {
 
             modSource project(':NovaCore').sourceSets.main
             modSource project(':GalacticResources').sourceSets.main
-//            modSource project(':ExNihiloSequentia').sourceSets.main
+            modSource project(':ExNihiloSequentia').sourceSets.main
 //            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
@@ -67,7 +67,7 @@ dependencies {
 
     implementation project(':NovaCore')
     implementation project(':GalacticResources')
-//    implementation project(':ExNihiloSequentia')
+    implementation project(':ExNihiloSequentia')
 //    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
 //    implementation project(':ExNihiloJade')
