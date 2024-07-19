@@ -193,7 +193,7 @@ ext.publish = {
                 groupId group
                 artifactId System.getenv("MAVEN_ARTIFACT") ?: mod_id
                 version version
-                artifact jar
+                from components.java
 
                 pom {
                     name = mod_name
