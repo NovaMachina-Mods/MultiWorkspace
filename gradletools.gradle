@@ -65,7 +65,7 @@ ext.exn = {
     if (findProject(':ExNihiloSequentia') != null) {
         dependencies.implementation project(':ExNihiloSequentia')
     } else {
-        dependencies.implementation "novamachina.novacore:novacore:${exnihilo_version}"
+        dependencies.implementation "novamachina.exnihilosequentia:exnihilosequentia:${exnihilo_version}"
     }
 }
 
