@@ -38,7 +38,7 @@ minecraft {
             modSource project(':NovaCore').sourceSets.main
             modSource project(':GalacticResources').sourceSets.main
             modSource project(':ExNihiloSequentia').sourceSets.main
-//            modSource project(':ExNihiloJEI').sourceSets.main
+            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
 //            modSource project(':ExNihiloMekanism').sourceSets.main
