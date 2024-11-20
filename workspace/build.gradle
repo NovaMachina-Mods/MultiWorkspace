@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
     id "com.modrinth.minotaur" version "2.+"
     id "com.matthewprenger.cursegradle" version "1.4.0"
-    id 'net.neoforged.gradle.userdev' version "7.0.155"
+    id 'net.neoforged.gradle.userdev' version "7.0.165"
     id 'com.diffplug.spotless' version '6.23.3'
     id 'org.sonarqube' version '4.4.1.3373'
 }
@@ -36,9 +36,9 @@ minecraft {
             systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             modSource project(':NovaCore').sourceSets.main
-            modSource project(':GalacticResources').sourceSets.main
+//            modSource project(':GalacticResources').sourceSets.main
             modSource project(':ExNihiloSequentia').sourceSets.main
-            modSource project(':ExNihiloJEI').sourceSets.main
+//            modSource project(':ExNihiloJEI').sourceSets.main
 //            modSource project(':ExNihiloTOP').sourceSets.main
 //            modSource project(':ExNihiloJade').sourceSets.main
 //            modSource project(':ExNihiloMekanism').sourceSets.main
@@ -66,9 +66,9 @@ dependencies {
     mc()
 
     implementation project(':NovaCore')
-    implementation project(':GalacticResources')
+//    implementation project(':GalacticResources')
     implementation project(':ExNihiloSequentia')
-    implementation project(':ExNihiloJEI')
+//    implementation project(':ExNihiloJEI')
 //    implementation project(':ExNihiloTOP')
 //    implementation project(':ExNihiloJade')
 //    implementation project(':ExNihiloMekanism')

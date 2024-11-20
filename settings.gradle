@@ -13,9 +13,9 @@ plugins {
 rootProject.name = 'MultiWorkspace'
 
 include 'NovaCore'
-include 'GalacticResources'
+//include 'GalacticResources'
 include 'ExNihiloSequentia'
-include 'ExNihiloJEI'
+//include 'ExNihiloJEI'
 //include 'ExNihiloTOP'
 //include 'ExNihiloMekanism'
 //include 'ExNihiloJade'
