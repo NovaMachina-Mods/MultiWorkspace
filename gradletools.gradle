@@ -86,7 +86,7 @@ ext.modrinthConfig = { opt, req, versions ->
         } else {
             projectId = project.mod_id
         }
-        versionNumber = project.mod_version
+        versionNumber = project.version
         versionType = project.release_type
         uploadFile = project.jar
         gameVersions = [ project.minecraft_version ]
