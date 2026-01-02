@@ -62,18 +62,34 @@ ext.mc = {
 }
 
 ext.exn = {
-    if (findProject(':ExNihiloSequentia') != null) {
-        dependencies.implementation project(':ExNihiloSequentia')
+    def includedExNihilo = gradle.includedBuilds.find { it.name == "ExNihiloSequentia" }
+    if (includedExNihilo != null) {
+        println "Using local ExNihiloSequentia module from includeBuild()."
+        dependencies.implementation "exnihilosequentia:ExNihiloSequentia:${exnihilo_version}"
     } else {
-        dependencies.implementation "novamachina.exnihilosequentia:exnihilosequentia:${exnihilo_version}"
+        if (findProject(':ExNihiloSequentia') != null) {
+            println "Using local ExNihiloSequentia module."
+            dependencies.implementation project(':ExNihiloSequentia')
+        } else {
+            println "Using remote exnihilosequentia library."
+            dependencies.implementation "novamachina.exnihilosequentia:exnihilosequentia:${exnihilo_version}"
+        }
     }
 }
 
 ext.novacore = {
-    if (findProject(':NovaCore') != null) {
-        dependencies.api project(':NovaCore')
+    def includedNovaCore = gradle.includedBuilds.find { it.name == "NovaCore" }
+    if (includedNovaCore != null) {
+        println "Using local NovaCore module from includeBuild()."
+        dependencies.api "novamachina.novacore:NovaCore:${novacore_version}"
     } else {
-        dependencies.api "novamachina.novacore:novacore:${novacore_version}"
+        if (findProject(':NovaCore') != null) {
+            println "Using local NovaCore module."
+            dependencies.api project(':NovaCore')
+        } else {
+            println "Using remote novacore library."
+            dependencies.api "novamachina.novacore:novacore:${novacore_version}"
+        }
     }
 }
 
